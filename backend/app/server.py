@@ -113,19 +113,24 @@ def generate_pointcloud(req: GenerateReq):
     #local_out = OUTPUT_DIR / f"{job_id}.ply"
 
     # Build the command, passing through optional knobs
-    cmd = [sys.executable, "-m", "point_e.evals.scripts.generate"]
-    cmd += ["--prompt", req.prompt]
-    if req.guidance is not None:
-        cmd += ["--guidance", str(req.guidance)]
-    if req.seed is not None:
-        cmd += ["--seed", str(req.seed)]
-    if req.no_upsample:
-        cmd += ["--no_upsample"]
+    #cmd = [sys.executable, "-m", "point_e.evals.scripts.generate"]
+    #cmd += ["--prompt", req.prompt]
+    #if req.guidance is not None:
+       # cmd += ["--guidance", str(req.guidance)]
+    #if req.seed is not None:
+        #cmd += ["--seed", str(req.seed)]
+    #if req.no_upsample:
+        #cmd += ["--no_upsample"]
 
+    # Simplify the command - no need for arguments anymore
+    cmd = [sys.executable, str(POINT_E_SCRIPT)]
+    
     env = {
         **os.environ,
         "PYTHONUNBUFFERED": "1",
         "PYTHONPATH": f"{VENDORED_POINT_E_DIR}:{os.environ.get('PYTHONPATH','')}",
+        "POINT_E_PROMPT": req.prompt,  # Add this line
+        "POINT_E_OUT": str(OUTPUT_DIR)  # Add this line too
     }
 
     proc = subprocess.run(
