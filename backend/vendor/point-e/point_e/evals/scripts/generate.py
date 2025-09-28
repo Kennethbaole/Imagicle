@@ -66,7 +66,7 @@ def main():
 
     pc = sampler.output_to_point_clouds(last)[0]
     coords = pc.coords.astype(np.float32)
-    import numpy as np
+    #import numpy as np
     colors = np.stack([pc.channels['R'], pc.channels['G'], pc.channels['B']], axis=1).astype(np.uint8)
 
     write_ply(out_path, coords, colors)
