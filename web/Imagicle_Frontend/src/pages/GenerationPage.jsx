@@ -337,7 +337,7 @@ const ImageGeneratorPage = () => {
     <>
       <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 text-white flex flex-col items-center px-6 py-16">
         {/* Title */}
-        <h1 className="text-5xl md:text-6xl font-bold mb-8 text-center bg-gradient-to-r from-white via-gray-200 to-cyan-400 bg-clip-text text-transparent leading-tight">
+        <h1 className="text-5xl md:text-6xl font-bold mb-8 text-center bg-gradient-to-r from-white via-gray-200 to-pink-500 bg-clip-text text-transparent leading-tight">
           Generate Your 3D Model
         </h1>
         <p className="text-gray-300 text-lg md:text-xl max-w-3xl text-center mb-12">
@@ -358,7 +358,7 @@ const ImageGeneratorPage = () => {
           <button
             onClick={handleGenerate}
             disabled={loading || !prompt}
-            className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-cyan-500 text-white rounded-full font-semibold text-lg hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+            className="px-8 py-4 bg-gradient-to-r from-pink-700 to-pink-500 text-cyan-500 rounded-full font-semibold text-lg hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
           >
             <Play className="w-5 h-5" />
             {loading ? 'Generating...' : 'Generate'}
@@ -413,7 +413,7 @@ const ImageGeneratorPage = () => {
               </button>
               <button
                 onClick={handleDownload}
-                className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white rounded-lg font-medium transition-all flex items-center gap-2 hover:shadow-lg"
+                className="px-6 py-3 bg-gradient-to-r from-pink-700 to-pink-500 hover:from-pink-700 hover:to-pink-500 text-white rounded-lg font-medium transition-all flex items-center gap-2 hover:shadow-lg"
               >
                 <Download className="w-4 h-4" />
                 Download PLY
