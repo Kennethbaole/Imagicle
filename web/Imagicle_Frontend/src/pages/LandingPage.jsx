@@ -79,7 +79,13 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-950 to-gray-900 text-white">
+    <div className="relative min-h-screen text-white">
+        {/* BG image (behind everything) */}
+    <div className="pointer-events-none absolute inset-0 -z-10 bg-[url('/particle-bg.jpg')] bg-cover bg-center bg-no-repeat" />
+
+        {/* Dark overlay to reduce brightness / increase contrast */}
+    <div className="pointer-events-none absolute inset-0 -z-10 bg-black/40" />
+
       {/* Navbar */}
       <nav className="fixed top-0 w-full bg-gray-950/90 backdrop-blur-sm z-50 border-b border-gray-700/50">
         <div className="relative flex items-center h-20 px-8 max-w-7xl mx-auto">
@@ -126,11 +132,13 @@ const LandingPage = () => {
       {/* Landing Title */}
       <section
         ref={appRef}
-        className="pt-36 pb-24 px-8 bg-gradient-to-b from-black/50 to-gray-900/30"
-      >
+        className="pt-36 pb-24 px-8"
+    >
+
         <div className="max-w-7xl mx-auto text-center">
           {/* Project Title */}
-          <h1 className="text-6xl md:text-7xl font-bold mb-12 bg-gradient-to-r from-pink-700 via-pink-600 to-pink-500 bg-clip-text text-transparent leading-tight">
+          <h1 className="text-6xl md:text-7xl font-bold mb-12 font-bold bg-gradient-to-r from-pink-700 via-pink-600 to-pink-500 bg-clip-text text-transparent
+                            hover:from-cyan-300 hover:to-indigo-400 transition-all duration-300 bg-clip-text text-transparent leading-tight">
             Imagicle
           </h1>
 
@@ -142,7 +150,7 @@ const LandingPage = () => {
           </div>
 
           {/* Tagline */}
-          <p className="mt-8 text-xl md:text-2xl text-gray-300 text-center">
+          <p className="mt-8 text-xl md:text-3xl text-gray-300 text-center">
             Turn your ideas into three dimensional worlds!
           </p>
 
@@ -194,7 +202,8 @@ const LandingPage = () => {
       </section>
 
       {/* About Us (with real photos) */}
-      <section ref={aboutUsRef} className="relative py-20 px-8 bg-black overflow-hidden">
+      <section ref={aboutUsRef} className="relative py-20 px-8 bg-black/40 overflow-hidden">
+
         {/* Decorative grid */}
         <div className="absolute inset-0">
           <div

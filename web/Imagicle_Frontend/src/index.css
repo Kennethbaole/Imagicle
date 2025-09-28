@@ -1,6 +1,15 @@
 @import "tailwindcss";
 
-.jersey-font {
-    font-family: 'Jersey 15', sans-serif;
+/* Global background image for every page */
+body {
+  background-image: url('/particle-bg.jpg'); /* file is in /public, so use leading slash */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* optional parallax feel */
 }
 
+/* Jersey 15 utility class (use it on elements you want) */
+.jersey-font {
+  font-family: 'Jersey 15', sans-serif;
+}
