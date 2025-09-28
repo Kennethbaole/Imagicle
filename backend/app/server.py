@@ -110,10 +110,10 @@ def generate_pointcloud(req: GenerateReq):
 
     job_id = str(uuid.uuid4())[:8]
     user = (req.user_id or "anon").replace("/", "_")
-    local_out = OUTPUT_DIR / f"{job_id}.ply"
+    #local_out = OUTPUT_DIR / f"{job_id}.ply"
 
     # Build the command, passing through optional knobs
-    cmd = [sys.executable, "-m", "point_e.evals.scripts.generate", "--out", str(local_out)]
+    cmd = [sys.executable, "-m", "point_e.evals.scripts.generate"]
     cmd += ["--prompt", req.prompt]
     if req.guidance is not None:
         cmd += ["--guidance", str(req.guidance)]
@@ -130,7 +130,7 @@ def generate_pointcloud(req: GenerateReq):
 
     proc = subprocess.run(
         cmd,
-        cwd=str(REPO_ROOT),
+        cwd=str(OUTPUT_DIR),
         capture_output=True,
         text=True,
         env=env,
@@ -139,9 +139,23 @@ def generate_pointcloud(req: GenerateReq):
     if proc.returncode != 0:
         msg = (proc.stderr or proc.stdout or "Point-E failed")[:4000]
         raise HTTPException(status_code=500, detail=f"Point-E error:\n{msg}")
-    if not local_out.exists() or local_out.stat().st_size == 0:
-        msg = (proc.stderr or proc.stdout or "Output not found or empty")[:4000]
+    #if not local_out.exists() or local_out.stat().st_size == 0:
+        #msg = (proc.stderr or proc.stdout or "Output not found or empty")[:4000]
+        #raise HTTPException(status_code=500, detail=f"Point-E output missing:\n{msg}")
+    
+    ply_files = list(OUTPUT_DIR.glob("*.ply"))
+    if not ply_files:
+        msg = (proc.stderr or proc.stdout or "No PLY file generated")[:4000]
         raise HTTPException(status_code=500, detail=f"Point-E output missing:\n{msg}")
+    
+    local_out = max(ply_files, key=lambda p: p.stat().st_mtime)
+    
+    if local_out.stat().st_size == 0:
+        raise HTTPException(status_code=500, detail="Generated PLY file is empty")
+    
+    job_specific_file = OUTPUT_DIR / f"{job_id}.ply"
+    local_out.rename(job_specific_file)
+    local_out = job_specific_file
 
     object_path = f"pointclouds/{user}/{job_id}/output.ply"
     try:
@@ -174,7 +188,6 @@ def generate_pointcloud(req: GenerateReq):
     }
 
 # ...existing code...
-
 @app.get("/api/pointcloud/url")
 def sign_existing(object_path: str = Query(..., description="e.g. pointclouds/anon/<job>/output.ply")):
     """Sign an existing object path and return a temporary GET URL."""
