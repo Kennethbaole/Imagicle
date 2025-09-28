@@ -31,7 +31,7 @@ def _sanitize_bucket(name: str) -> str:
     # Accept "gs://bucket" or "bucket" env values; normalize to "bucket"
     return name.replace("gs://", "").strip().strip("/")
 
-BUCKET = _sanitize_bucket(os.getenv("POINTCLOUD_BUCKET", "imagicle-473400-pointclouds-dev"))
+BUCKET = _sanitize_bucket(os.getenv("POINTCLOUD_BUCKET", "imagicle-473400-pointclouds-env"))
 
 # If you ever want to invoke the file directly instead of -m:
 _env_point_e = os.getenv("POINT_E_SCRIPT")
