@@ -335,7 +335,10 @@ const ImageGeneratorPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 text-white flex flex-col items-center px-6 py-16">
+      <div className="relative min-h-screen text-white flex flex-col items-center px-6 py-16">
+      {/* Page overlay to reduce background brightness (adjust /20–/60) */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-black/35" />
+
         {/* Title */}
         <h1 className="text-5xl md:text-6xl font-bold mb-8 text-center bg-gradient-to-r from-white via-gray-200 to-pink-500 bg-clip-text text-transparent leading-tight">
           Generate Your 3D Model

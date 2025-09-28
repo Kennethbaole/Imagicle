@@ -15,6 +15,9 @@ node_modules/
 .idea/
 .vscode/
 
+**/backend/credentials/*
+
+
 # Point-E caches & outputs
 point_e_model_cache/
 data/outputs/
@@ -26,3 +29,4 @@ data/outputs/
 *.ckpt
 *.dylib
 *.so
+
